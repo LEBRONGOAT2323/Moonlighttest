@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; }
+        #unity-canvas { width: 100vw; height: 100vh; }
+    </style>
+</head>
+<body>
+    <canvas id="unity-canvas"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/gh/z799gs/550o8@main/Build/Dune.loader.js"></script>
+    
+    <script>
+        const canvas = document.querySelector("#unity-canvas");
+        const buildUrl = "https://cdn.jsdelivr.net/gh/z799gs/550o8@main/Build";
+
+        // This specific object structure bypasses most "Grey Screen" errors
+        const config = {
+            dataUrl: buildUrl + "/Dune.data",
+            frameworkUrl: buildUrl + "/Dune.framework.js",
+            codeUrl: buildUrl + "/Dune.wasm",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "DefaultCompany",
+            productName: "Dune",
+            productVersion: "1.0",
+        };
+
+        // Standard Unity initialization
+        createUnityInstance(canvas, config, (progress) => {
+            // Leave empty to maximize loading speed
+        }).then((instance) => {
+            console.log("Game Loaded");
+        }).catch((err) => {
+            // If this triggers, the online viewer is blocking Wasm
+            console.error(err);
+        });
+    </script>
+</body>
+</html>
