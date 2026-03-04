@@ -1,41 +1,43 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en-us">
+  <head>
     <meta charset="utf-8">
+    <title>Dune Game</title>
     <style>
-        body { margin: 0; background: #000; overflow: hidden; }
-        #unity-canvas { width: 100vw; height: 100vh; }
+      body { margin: 0; background-color: #000; overflow: hidden; }
+      #game-container { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; }
+      canvas { width: 100%; height: 100%; }
     </style>
-</head>
-<body>
-    <canvas id="unity-canvas"></canvas>
+  </head>
+  <body>
+    <div id="game-container">
+      <canvas id="unity-canvas"></canvas>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/gh/z799gs/550o8@main/Build/Dune.loader.js"></script>
     
     <script>
-        const canvas = document.querySelector("#unity-canvas");
-        const buildUrl = "https://cdn.jsdelivr.net/gh/z799gs/550o8@main/Build";
+      const canvas = document.querySelector("#unity-canvas");
 
-        // This specific object structure bypasses most "Grey Screen" errors
-        const config = {
-            dataUrl: buildUrl + "/Dune.data",
-            frameworkUrl: buildUrl + "/Dune.framework.js",
-            codeUrl: buildUrl + "/Dune.wasm",
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: "DefaultCompany",
-            productName: "Dune",
-            productVersion: "1.0",
-        };
+      // Configuration for the Unity Instance
+      // Note: Usually, you'd also need a .data and .wasm link for a complete build
+      const config = {
+        dataUrl: "https://cdn.jsdelivr.net/gh/z799gs/550o8@main/Build/Dune.data",
+        frameworkUrl: "https://cdn.jsdelivr.net/gh/z799gs/550o8@main/Build/Dune.framework.js",
+        codeUrl: "https://cdn.jsdelivr.net/gh/z799gs/550o8@main/Build/Dune.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "Dune",
+        productVersion: "0.1",
+      };
 
-        // Standard Unity initialization
-        createUnityInstance(canvas, config, (progress) => {
-            // Leave empty to maximize loading speed
-        }).then((instance) => {
-            console.log("Game Loaded");
-        }).catch((err) => {
-            // If this triggers, the online viewer is blocking Wasm
-            console.error(err);
-        });
+      createUnityInstance(canvas, config, (progress) => {
+        console.log("Loading: " + (100 * progress) + "%");
+      }).then((unityInstance) => {
+        console.log("Game Loaded Successfully");
+      }).catch((message) => {
+        alert(message);
+      });
     </script>
-</body>
+  </body>
 </html>
