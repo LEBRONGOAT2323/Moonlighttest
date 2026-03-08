@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
     <title id="siteTitle">Moonlight Movies</title>
-    <link id="siteIcon" rel="icon" href="https://www.google.com/favicon.ico">
+    <link rel="icon" href="https://www.google.com/favicon.ico">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
@@ -130,19 +130,19 @@
 
         let currentPage = 1, currentTVId = null, isSearching = false, searchTimeout = null, currentMedia = {};
 
-        function cloakTab(title, favicon) {
-            document.title = title;
+       function cloakTab(title, favicon) {
+          document.title = title;
 
-            let link = document.querySelector("link[rel='icon']");
-            if (link) link.remove();
+          const oldIcon = document.querySelector("link[rel='icon']");
+          if (oldIcon) oldIcon.remove();
 
-            const newIcon = document.createElement("link");
-            newIcon.rel = "icon";
-            newIcon.href = favicon + "?v=" + Date.now();
-            document.head.appendChild(newIcon);
-
-            localStorage.setItem("cloakTitle", title);
-            localStorage.setItem("cloakIcon", favicon);
+          const newIcon = document.createElement("link");
+          newIcon.rel = "icon";
+          newIcon.href = favicon + "?v=" + Date.now();
+          document.head.appendChild(newIcon);
+    
+          localStorage.setItem("cloakTitle", title);
+          localStorage.setItem("cloakIcon", favicon);
         }
 
         async function fetchNextBatch() {
